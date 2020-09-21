@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TopNavigation from './components/navigation/TopNavigation';
+import Main from './components/main/Main';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IMyComponentProps {}
+
+interface IMyComponentState {
+  receivedvalue: any
+}
+
+class App extends React.Component <IMyComponentProps, IMyComponentState>{
+
+  refElement:any;
+
+  constructor(props:IMyComponentProps) {
+    super(props);
+
+    this.state = {
+      receivedvalue : 30
+    };
+  }
+  setRef = (element:any) => { // this method for creating reference for main component
+    this.refElement = element
+  }
+  getData = (value:any) => { // get data from top navigation component.
+    this.setState({receivedvalue:value})
+    this.refElement.createRandomArray(value)
+  }
+  updateData = (value:any) => {
+    this.setState({receivedvalue:value});
+    this.refElement.updateData(value)
+  }
+  toMainStart = () => {
+    this.refElement.callSort()
+  }
+  render() {
+    return(
+      <main>
+        <TopNavigation sendData ={this.getData} updateData = {this.updateData} startSorting={this.toMainStart}/>
+        <Main ref = {this.setRef}/>
+      </main>
+    )
+  }
 }
 
 export default App;

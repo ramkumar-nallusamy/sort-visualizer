@@ -1,0 +1,22 @@
+nav {
+    background: #20232A;
+    color: white;
+    padding: 2rem;
+
+    button {
+        border: 1px solid wheat;
+        background: none;
+        color: white;
+        border-radius: 3px;
+        padding: 10px;
+    }
+    ul > li {
+        list-style: none;
+        margin: auto 20px;
+        cursor: pointer;
+    }
+    input {
+        border: 1px solid wheat;
+        border-radius: 3px;
+    }
+}
