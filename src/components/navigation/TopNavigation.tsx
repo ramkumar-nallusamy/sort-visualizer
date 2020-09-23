@@ -25,11 +25,20 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
     }
 
     changeSize = (event:any) => {
-        this.setState({value:event.target.value});
-        this.props.sendData({            
-            value : event.target.value,
-            type: this.state.type,
-            method: this.state.method})
+        if (event.target.value <= 100) {
+            this.setState({value:event.target.value});
+            this.props.sendData({            
+                value : event.target.value,
+                type: this.state.type,
+                method: this.state.method})
+        }
+        else {
+            this.setState({value:100});
+            this.props.sendData({            
+                value : 100,
+                type: this.state.type,
+                method: this.state.method})
+        }
     }
     gerateArray = () => {
         this.props.sendData(this.state)
@@ -46,7 +55,7 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
     }
     changeSpeed = (event:any) => { 
         this.setState({type:parseInt(event.target.value)}) 
-        this.props.updateData({            
+        this.props.sendData({            
             value : this.state.value,
             type:parseInt(event.target.value),
             method: this.state.method})

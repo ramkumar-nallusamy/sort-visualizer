@@ -34,7 +34,7 @@ export class HeapSort extends Component <IMyComponentProps> {
             [arr[0],arr[k]] = [arr[k],arr[0]];
             this.heapify(arr,k,0);
             k--;
-            this.toCreateElements(arr,arr[0],k)
+            this.toCreateElements(arr,i,k)
             yield;
         }
         this.toCreateElements(arr,"sorted");
@@ -43,6 +43,7 @@ export class HeapSort extends Component <IMyComponentProps> {
     }
     toCall(arr:any,timer:number) {
         this.array = arr;
+        console.log(timer)
         this.toStart = this.heapSort();
         setInterval( () => {
             if (this.toStart) {
