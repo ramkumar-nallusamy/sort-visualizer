@@ -19,10 +19,12 @@ export class SelectionSort extends Component <IMyComponentProps> {
                     minElement = this.array[i];
                     index = i;
                 }
-                this.toCreateElements(this.array,i,j);
+                // this.toCreateElements(this.array,i,j);
             }
+            yield;
             this.array[index] = this.array[tempIndex];
             this.array[tempIndex] = minElement;
+            this.toCreateElements(this.array,index,j);
             tempIndex++;
         }
         this.toCreateElements(this.array,"sorted");

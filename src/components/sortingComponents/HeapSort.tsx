@@ -5,7 +5,7 @@ interface IMyComponentProps { getChild:any; }
 export class HeapSort extends Component <IMyComponentProps> {
    
     array: any;
-    toStart = this.heapSort();
+    toStart:any = this.heapSort();
     
     constructor(props:IMyComponentProps) { super(props) }
     heapify(arr:any,length:number,i:number) {
@@ -38,15 +38,25 @@ export class HeapSort extends Component <IMyComponentProps> {
             yield;
         }
         this.toCreateElements(arr,"sorted");
-        this.toStart = this.heapSort();
+        this.toStart = undefined;
         return arr;
     }
     toCall(arr:any,timer:number) {
         this.array = arr;
-        setInterval( () => {this.toStart.next();}, timer)
+        this.toStart = this.heapSort();
+        setInterval( () => {
+            if (this.toStart) {
+                this.toStart.next();
+            }
+        }, timer)
     }
     toCreateElements(array:any,i?:any,j?:any) {
-        i === array.length-2 &&j === 1 ? this.toCreateElements(array,-1,-1): this.props.getChild(array,i,j);
+        if (i === "sorted") {
+            this.props.getChild(array,i,j)
+        }
+        else {
+            this.props.getChild(array,i,j)
+        }
     }
     render() {return (<></>)}
 }

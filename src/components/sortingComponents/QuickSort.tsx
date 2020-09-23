@@ -17,6 +17,7 @@ export class QuickSort extends Component <IMyComponentProps> {
         var temp = items[leftIndex];
         items[leftIndex] = items[rightIndex];
         items[rightIndex] = temp;
+        this.toCreateElements(items,leftIndex,rightIndex);
     }
     partition(items:any, left:any, right:any) {
         var pivot   = items[Math.floor((right + left) / 2)], //middle element
@@ -35,32 +36,29 @@ export class QuickSort extends Component <IMyComponentProps> {
                 j--;
             }
         }
-        this.toCreateElements(items,left,right)
         return i;
     }
-    async quickSort(items:any, left:any, right:any) {
+    quickSort(items:any, left:any, right:any) {
         var index;
         if (items.length > 1) {
-            return new Promise(() => {
-                setTimeout(() => {
-                    index = this.partition(items, left, right); //index returned from partition
-                    if (left < index - 1) { //more elements on the left side of the pivot
-                        this.quickSort(items, left, index - 1);
-                    }
-                    if (index < right) { //more elements on the right side of the pivot
-                        this.quickSort(items, index, right);
-                    }
-                }, this.timer);
-            })
+            setTimeout(() => {
+                index = this.partition(items, left, right); //index returned from partition
+                if (left < index - 1) { //more elements on the left side of the pivot
+                    this.quickSort(items, left, index - 1);
+                }
+                if (index < right) { //more elements on the right side of the pivot
+                    this.quickSort(items, index, right);
+                }
+                console.log(items.length)
+            }, this.timer);
         }
-        this.toCreateElements(items,"sorted")
     }
     toCreateElements(array:any,i?:any,j?:any) {
-        i === array.length-2 &&j === 1 ? this.toCreateElements(array,-1,-1): this.props.getChild(array,i,j);
+        this.props.getChild(array,i,j);
     }
     sort(array:any,timer:number) {
-        this.timer = timer
-        this.quickSort(array,0,array.length -1);
+        this.timer = timer;
+        this.quickSort(array,0,array.length -1)
     }
     render() {
         return (
