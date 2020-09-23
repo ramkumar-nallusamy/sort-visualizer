@@ -48,14 +48,14 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
     }
     changeType = (event:any) => {
         this.setState({method:event.target.value})
-        this.props.updateData({            
+        this.props.sendData({            
             value : this.state.value,
             type:this.state.type,
             method:event.target.value})
     }
     changeSpeed = (event:any) => { 
         this.setState({type:parseInt(event.target.value)}) 
-        this.props.sendData({            
+        this.props.updateData({            
             value : this.state.value,
             type:parseInt(event.target.value),
             method: this.state.method})
@@ -82,7 +82,7 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
                         <option value='Bubble Sort'>Bubble sort</option>
                         <option value='Heap Sort'>Heap sort</option>
                         <option value='Insertion Sort'>Insertion sort</option>
-                        <option value='Merge Sort'>Merge sort</option>
+                        {/* <option value='Merge Sort'>Merge sort</option> */}
                         <option value='Quick Sort'>Quick sort</option>
                         <option value='selection Sort'>Selection sort</option>
                     </select>
