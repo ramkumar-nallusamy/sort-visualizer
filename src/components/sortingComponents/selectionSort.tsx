@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { clearInterval } from 'timers';
 
 
 interface IMyComponentProps {getChild:any;}
@@ -10,37 +9,37 @@ export class SelectionSort extends Component <IMyComponentProps> {
     toSort:any = this.start();
 
     *start () {
-        let len = this.array.length, minElement:any, tempIndex = 0, index:any = 0;
-        for (let j=0;j<len;j++) {
-            minElement = this.array[j];
-            for (let i=j;i<len;i++) {
+        let len = this.array.length, minElement:any;
+        for(let mainElem=0;mainElem<len;mainElem++) {
+            minElement = mainElem;
+            for (let currentElem=mainElem;currentElem<len;currentElem++) { // to compare the main element with other elements.
+                this.toCreateElements(this.array,mainElem,currentElem)
                 yield;
-                if (minElement>this.array[i]){
-                    minElement = this.array[i];
-                    index = i;
+                if(this.array[minElement] > this.array[currentElem]) { // to find the min element.
+                    minElement = currentElem;
                 }
-                // this.toCreateElements(this.array,i,j);
             }
-            yield;
-            this.array[index] = this.array[tempIndex];
-            this.array[tempIndex] = minElement;
-            this.toCreateElements(this.array,index,j);
-            tempIndex++;
+            if (minElement !== mainElem) {  // checking to avoid swap same element.
+                this.toCreateElements(this.array,this.array[minElement],this.array[mainElem]);
+                [this.array[mainElem],this.array[minElement]] = [this.array[minElement],this.array[mainElem]]
+                yield;
+            }
         }
-        this.toCreateElements(this.array,"sorted");
-        this.toSort = undefined;
+        this.toCreateElements(this.array,"sorted"); // for inform array is sorted.
+        clearInterval(this.interval);
+        console.log(this.array);
     }
     sort = (array:any,timer:any) => {
         this.toSort = this.start();
         this.array = array; 
+        this.toSort.next();
         this.interval = setInterval ( () => {
-            if (this.toSort) {
                 this.toSort.next()
-            }
+                console.log("called")
         },timer)
     }
     toCreateElements(array:any,i?:any,j?:any) {
-            this.props.getChild(array,i,j)
+            this.props.getChild(array,i,j) // evertime while calling this method UI element will create for the array.
     }
     render() {return (<></>)}
 }

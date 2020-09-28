@@ -6,10 +6,10 @@ export class HeapSort extends Component <IMyComponentProps> {
    
     array: any;
     toStart:any = this.heapSort();
-    timer: any = 0;
+    interval: any;
     
     constructor(props:IMyComponentProps) { super(props) }
-    heapify(arr:any,length:number,i:number) {
+    heapify(arr:any,length:number,i:number) { // to heap the array.
         let largest = i;
         let left = i * 2 + 1;
         let right = left + 1;
@@ -34,7 +34,6 @@ export class HeapSort extends Component <IMyComponentProps> {
         while (i >= 0) {
             this.heapify(arr,length,i)
             i--;
-            // this.toCreateElements(arr,k,i)
             yield;
         }
         while(k >= 0) {
@@ -43,30 +42,21 @@ export class HeapSort extends Component <IMyComponentProps> {
             k--;
             yield;
         }
-        this.toCreateElements(arr,"sorted");
-        this.toStart = undefined;
-        this.timer = undefined;
+        this.toCreateElements(arr,"sorted"); // while calling this method will understand the array is sorted
+        this.toStart = undefined; // for destruct the generator.
+        clearInterval(this.interval) 
         return arr;
     }
     toCall(arr:any,timer:number) {
         this.array = arr;
-        this.timer = timer;
-        console.log(this.timer)
-        this.toStart = this.heapSort();
-        setInterval( () => {
+        this.toStart = this.heapSort(); // for reset the generator.
+        this.interval = setInterval( () => {
             if (this.toStart) {
-                this.toStart.next();
+                this.toStart.next(); // Resume the stopped function.
             }
-        }, this.timer)
+        }, timer)
     }
-    toCreateElements(array:any,i?:any,j?:any) {
-        if (i === "sorted") {
-            this.props.getChild(array,i,j)
-        }
-        else {
-            this.props.getChild(array,i,j)
-        }
-    }
+    toCreateElements(array:any,i?:any,j?:any) { this.props.getChild(array,i,j) } // evertime while calling this method UI element will create for the array.
     render() {return (<></>)}
 }
 

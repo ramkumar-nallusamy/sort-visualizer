@@ -13,10 +13,6 @@ interface IMyComponentState {
     arrayToView:any;
     object:Object;
     randomArray:any;
-    sortInfo:{
-        highlights:[],
-        cases:[]
-    }
 }
 
 export class Main extends Component <IMyComponentProps, IMyComponentState> {
@@ -39,13 +35,9 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
                 method: "Insertion Sort"
             },
             randomArray:[],
-            sortInfo:{
-                highlights:[],
-                cases:[]
-            }
         }
     }
-    toCreateElements(array:any) {
+    toCreateElements(array:any) { // it will create html lists.
         this.arrayItems = array.map( (element:any,index:any) => 
         <li key={index} style={element.style} className='mx-1' data-toggle="tooltip" data-placement="right" title={`value: ${element.value}`}></li>)
         this.setState({arrayToView:this.arrayItems});
@@ -55,14 +47,14 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
              this.createRandomArray(this.state.object);
          }
     }
-    createStyles(array:any,first?:any,second?:any) {
+    createStyles(array:any,first?:any,second?:any) { // set styles for elements.
         let styledArray = [];
-        for (let i=0;i<array.length;i++) {
-            if (i === first) {
+        for (let element=0;element<array.length;element++) {
+            if (element === first) {
                 let obj = {
-                    value:array[i],
+                    value:array[element],
                     style: {
-                        height:`${array[i]}px`,
+                        height:`${array[element]}px`,
                         width:'5px',
                         background:"#90EE90",
                         listStyle:'none',
@@ -70,11 +62,11 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
                 }
                 styledArray.push(obj)
             }
-            else if (i === second) {
+            else if (element === second) {
                 let obj = {
-                    value:array[i],
+                    value:array[element],
                     style: {
-                        height:`${array[i]}px`,
+                        height:`${array[element]}px`,
                         width:'5px',
                         background:'red',
                         listStyle:'none',
@@ -84,9 +76,9 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
             }
             else if (first === "sorted") {
                 let obj = {
-                    value:array[i],
+                    value:array[element],
                     style: {
-                        height:`${array[i]}px`,
+                        height:`${array[element]}px`,
                         width:'5px',
                         background:"#FF2EC7",
                         listStyle:'none',
@@ -96,9 +88,9 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
             }
             else {
                 let obj = {
-                    value:array[i],
+                    value:array[element],
                     style: {
-                        height:`${array[i]}px`,
+                        height:`${array[element]}px`,
                         width:'5px',
                         background:"blue",
                         listStyle:'none',
@@ -112,7 +104,7 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
     updateData(data:any) {
         this.setState({object:data})
     }
-    callSort() {
+    callSort() { // calling sort method.
         const object:any = this.state.object;
         const array:any = this.state.randomArray;
         switch(object.method) {
@@ -146,7 +138,7 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
         this.setState({randomArray:array,object:object})
         
     }
-    callMergeSort = (element:any) => {
+    callMergeSortRef = (element:any) => {
         this.sortElement = element
     }
     heapSortRef = (element:any) => {
@@ -155,7 +147,7 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
     insertionSortRef = (element:any) => {
         this.InsertionSortRefElement = element;
     }
-    bubbleSort = (element:any) => {
+    bubbleSortRef = (element:any) => {
         this.bubbleSortRefElement = element;
     }
     selectionSortRef = (element:any) => {
@@ -171,8 +163,8 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
         return (
             <div>
                 <ul className='d-flex justify-content-center'>{this.arrayItems}</ul>
-                <BubbleSort ref={this.bubbleSort} getChild={this.toViewCallBack}/>
-                <MergeSort ref= {this.callMergeSort} getChild={this.toViewCallBack}/>
+                <BubbleSort ref={this.bubbleSortRef} getChild={this.toViewCallBack}/>
+                <MergeSort ref= {this.callMergeSortRef} getChild={this.toViewCallBack}/>
                 <HeapSort ref={this.heapSortRef} getChild={this.toViewCallBack}/>
                 <QuickSort ref={this.quickSortRef} getChild={this.toViewCallBack}/>
                 <InsertionSort ref={this.insertionSortRef} getChild={this.toViewCallBack}/>

@@ -4,15 +4,12 @@ interface IMyComponentProps {
     getChild:any;
   }
 
-
 export class QuickSort extends Component <IMyComponentProps> {
+
     array: any;
     timer: number | undefined;
-    constructor(props:IMyComponentProps) {
-        super(props)
+    constructor(props:IMyComponentProps) { super(props) }
     
-        this.state = {}
-    }
     swap(items:any, leftIndex:any, rightIndex:any){
         var temp = items[leftIndex];
         items[leftIndex] = items[rightIndex];
@@ -41,7 +38,7 @@ export class QuickSort extends Component <IMyComponentProps> {
     quickSort(items:any, left:any, right:any) {
         var index;
         if (items.length > 1) {
-            setTimeout(() => {
+            setTimeout(() => { // delay for every iterations.
                 index = this.partition(items, left, right); //index returned from partition
                 if (left < index - 1) { //more elements on the left side of the pivot
                     this.quickSort(items, left, index - 1);
@@ -49,23 +46,17 @@ export class QuickSort extends Component <IMyComponentProps> {
                 if (index < right) { //more elements on the right side of the pivot
                     this.quickSort(items, index, right);
                 }
-                console.log(items.length)
             }, this.timer);
         }
     }
     toCreateElements(array:any,i?:any,j?:any) {
-        this.props.getChild(array,i,j);
+        this.props.getChild(array,i,j); // evertime while calling this method UI element will create for the array.
     }
     sort(array:any,timer:number) {
-        this.timer = timer;
+        this.timer = timer; // for reset timers.
         this.quickSort(array,0,array.length -1)
     }
-    render() {
-        return (
-            <div>
-            </div>
-        )
-    }
+    render() { return (<></>) }
 }
 
 export default QuickSort

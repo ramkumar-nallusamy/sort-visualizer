@@ -17,14 +17,14 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
     constructor(props:IMyComponentProps) {
         super(props)
     
-        this.state = {
+        this.state = { // default values of random array.
              value : 50,
              type:100,
              method:'Insertion Sort'
         } 
     }
 
-    changeSize = (event:any) => {
+    changeSize = (event:any) => { // changing the array size.
         if (event.target.value <= 100) {
             this.setState({value:event.target.value});
             this.props.sendData({            
@@ -46,14 +46,14 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
     startSort = () => {
         this.props.startSorting()
     }
-    changeType = (event:any) => {
+    changeType = (event:any) => { // change the array method.
         this.setState({method:event.target.value})
         this.props.sendData({            
             value : this.state.value,
             type:this.state.type,
             method:event.target.value})
     }
-    changeSpeed = (event:any) => { 
+    changeSpeed = (event:any) => {  // change the speed type of the array.
         this.setState({type:parseInt(event.target.value)}) 
         this.props.updateData({            
             value : this.state.value,
@@ -71,9 +71,10 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
                 <section className='d-flex'>
                     <label className='my-auto mr-2'>Speed:</label>
                     <select className='pr-3' id='speed' value ={this.state.type} onChange = {this.changeSpeed}>
-                        <option value={1000} >Slow</option>
-                        <option value={100}>Medium</option>
-                        <option value={10}>Fast</option>
+                        <option value={1000} >1000 msec</option>
+                        <option value={500}>500 msec</option>
+                        <option value={100}>100 msec</option>
+                        <option value={10}>10 msec</option>
                     </select>
                 </section>
                 <section className='d-flex'>
