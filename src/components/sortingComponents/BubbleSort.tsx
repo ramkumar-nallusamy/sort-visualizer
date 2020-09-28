@@ -11,17 +11,17 @@ export class BubbleSort extends Component <IMyComponentProps> {
 
     *bubbleSort(){   
         let len = this.array.length;
-        for (let i=len;i>0;i--) {
-            for (let j=0;j<i;j++) {
+        for (let mainElem=len;mainElem>0;mainElem--) {
+            for (let comparingElem=0;comparingElem<mainElem;comparingElem++) {
                 yield;
-                if (this.array[j]>this.array[j+1]) {
-                    let temp = this.array[j];
-                    this.array[j] = this.array[j+1];
-                    this.array[j+1] = temp;
-                    this.toCreateElements(this.array,j,j+1)
+                if (this.array[comparingElem]>this.array[comparingElem+1]) {
+                    let temp = this.array[comparingElem];
+                    this.array[comparingElem] = this.array[comparingElem+1];
+                    this.array[comparingElem+1] = temp;
+                    this.toCreateElements(this.array,comparingElem,comparingElem+1)
                     yield;
                 }
-                if (i === 1) {
+                if (mainElem === 1) {
                     clearInterval(this.interval)
                     this.toCreateElements(this.array,"sorted"); // while calling this method will understand the array is sorted
                     this.sort = undefined; // destruct the generator function.
@@ -37,7 +37,7 @@ export class BubbleSort extends Component <IMyComponentProps> {
                 this.sort.next() // resume the function.
             }
         },timer)}
-    toCreateElements(array:any,i?:any,j?:any) {i === 1 && j === 0 ? this.toCreateElements(array,-1,-1): this.props.getChild(array,i,j);} // evertime while calling this method UI element will create for the array.
+    toCreateElements(array:any,red?:any,green?:any) {red === 1 && green === 0 ? this.toCreateElements(array,-1,-1): this.props.getChild(array,red,green);} // evertime while calling this method UI element will create for the array.
     render() {return (<></>)}
 }
 export default BubbleSort

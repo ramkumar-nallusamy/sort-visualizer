@@ -9,9 +9,9 @@ export class HeapSort extends Component <IMyComponentProps> {
     interval: any;
     
     constructor(props:IMyComponentProps) { super(props) }
-    heapify(arr:any,length:number,i:number) { // to heap the array.
-        let largest = i;
-        let left = i * 2 + 1;
+    heapify(arr:any,length:number,splitValue:number) { // to heap the array.
+        let largest = splitValue;
+        let left = splitValue * 2 + 1;
         let right = left + 1;
         if (left< length && arr[left] > arr[largest]) { 
             this.toCreateElements(arr,left,largest)
@@ -21,25 +21,25 @@ export class HeapSort extends Component <IMyComponentProps> {
             this.toCreateElements(arr,right,largest)
             largest = right;
         }
-        if (largest != i) {
-            [arr[i],arr[largest]] = [arr[largest],arr[i]]
+        if (largest != splitValue) {
+            [arr[splitValue],arr[largest]] = [arr[largest],arr[splitValue]]
             this.heapify(arr,length,largest);
         }
     }
     *heapSort(arr?:any) {
         arr = this.array;
         let length = arr.length;
-        let i = Math.floor(length/2 - 1);
-        let k = length - 1;
-        while (i >= 0) {
-            this.heapify(arr,length,i)
-            i--;
+        let splitValue = Math.floor(length/2 - 1);
+        let unSortArrLength = length - 1;
+        while (splitValue >= 0) {
+            this.heapify(arr,length,splitValue)
+            splitValue--;
             yield;
         }
-        while(k >= 0) {
-            [arr[0],arr[k]] = [arr[k],arr[0]];
-            this.heapify(arr,k,0);
-            k--;
+        while(unSortArrLength >= 0) {
+            [arr[0],arr[unSortArrLength]] = [arr[unSortArrLength],arr[0]];
+            this.heapify(arr,unSortArrLength,0);
+            unSortArrLength--;
             yield;
         }
         this.toCreateElements(arr,"sorted"); // while calling this method will understand the array is sorted
