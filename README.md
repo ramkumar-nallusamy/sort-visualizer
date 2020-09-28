@@ -2,7 +2,9 @@
 
 ## What is Sort-visualizer ?
 
-    sort-visualizer is a Data structure sorting algorithms model visualization application. User can able to see the inner functions of the sorting algorithm with time dalay and respective color code changings.
+    sort-visualizer is a Data structure sorting algorithms model visualization application.
+    User can able to see the inner functions of the sorting algorithm with time dalay 
+    and respective color code changings.
 
 ## Algorithms Available :
     
