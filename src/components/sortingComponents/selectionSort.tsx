@@ -27,7 +27,6 @@ export class SelectionSort extends Component <IMyComponentProps> {
         }
         this.toCreateElements(this.array,"sorted"); // for inform array is sorted.
         clearInterval(this.interval);
-        console.log(this.array);
     }
     sort = (array:any,timer:any) => {
         this.toSort = this.start();
@@ -35,7 +34,6 @@ export class SelectionSort extends Component <IMyComponentProps> {
         this.toSort.next();
         this.interval = setInterval ( () => {
                 this.toSort.next()
-                console.log("called")
         },timer)
     }
     toCreateElements(array:any,i?:any,j?:any) {
