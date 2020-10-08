@@ -83,8 +83,8 @@ export class TopNavigation extends Component <IMyComponentProps, IMyComponentSta
                         <option value='Bubble Sort'>Bubble sort</option>
                         <option value='Heap Sort'>Heap sort</option>
                         <option value='Insertion Sort'>Insertion sort</option>
-                        {/* <option value='Merge Sort'>Merge sort</option> */}
-                        <option value='Quick Sort'>Quick sort</option>
+                        <option value='Merge Sort'>Merge sort</option>
+                        {/* <option value='Quick Sort'>Quick sort</option> */}
                         <option value='selection Sort'>Selection sort</option>
                     </select>
                 </section>

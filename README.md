@@ -11,7 +11,13 @@
     2. Selection sort.
     3. Heap sort.
     4. Bubble sort.
-    5. Quick sort.
+    5. Merge sort.
+    
+## Behind the Scenes :
+
+    1. In this project we visualise the changes in sort algorithms using Generators and timeouts.
+    2. All sorting algorithms are done by Iterative functions and Recursive way is not used here.
+    3. For the accurate timing results I'm Hold functions two times per cycle.
 
 ## How to Install :
 
@@ -28,10 +34,6 @@
     4. Then generate array using button, "Generate new array" and adjust time delays to see the visuals with various sort methods.
     5. Clik "start" to begin sorting.
     6. Change the array size and play more with sort methods.(maximum array size is 100)
-
-## Bugs in Pending :
-
-    1. In Quick sort visualisation process was not perfect upto the level.
 
 ## Scheme credits :
 

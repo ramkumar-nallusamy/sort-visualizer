@@ -10,52 +10,73 @@ interface IMyComponentState {
 
 export class MergeSort extends Component <IMyComponentProps, IMyComponentState> {
 
-  mergeSort (arr:any):any {
-    console.log("Merge sort is under development. in next submit will work properly.")
-    if (arr.length <= 1) return arr;
-    let mid = Math.floor(arr.length / 2),left,right;
-    left = this.mergeSort(arr.slice(0, mid))
-    right = this.mergeSort(arr.slice(mid))
-    let sorted = [];
-    while (left.length && right.length) {
-      if (left[0] < right[0]) sorted.push(left.shift());
-      else sorted.push(right.shift());
-    };
-    const value = sorted.concat(left.slice().concat(right.slice()));
-    this.toCreateElements(value)
-    return value;
+  array:any = [];
+  toSort:any = this.start();
+  interval: any;
+
+  *start() {
+    //Create two arrays for sorting
+    let sorted:any = Array.from(this.array);
+    let n = sorted.length;
+    let buffer = new Array(n);
+    
+    for (let size = 1; size < n; size *= 2) {
+      for (let leftStart = 0; leftStart < n; leftStart += 2*size) {
+        //Get the two sub arrays
+        let left = leftStart,
+            right = Math.min(left + size, n),
+            leftLimit = right,
+            rightLimit = Math.min(right + size, n);
+        //Merge the sub arrays
+        let bufferLeft = left;
+        //Compare the two sub arrays and merge them in the sorted order
+        while (left < leftLimit && right < rightLimit) {
+          if (sorted[left] <= sorted[right]) {
+            buffer[bufferLeft++] = sorted[left++];
+          } else {
+            buffer[bufferLeft++] = sorted[right++];
+          }
+          yield;
+          this.toCreateElements(buffer,left+1,right+1)
+        }
+      
+        //If there are elements in the left sub arrray then add it to the result
+        while (left < leftLimit) {
+          buffer[bufferLeft++] = sorted[left++];
+          yield;
+          this.toCreateElements(buffer,left,right)
+        }
+      
+        //If there are elements in the right sub array then add it to the result
+        while (right < rightLimit) {
+          buffer[bufferLeft++] = sorted[right++];
+        }
+      }
+      //Swap the sorted sub array and merge them
+      let temp = sorted;
+      sorted = buffer;
+      buffer = temp;
+    }
+    this.toCreateElements(sorted,"sorted");
+    clearInterval(this.interval);
+    return sorted;
+  }
+
+  sort = (array:any,timer:any) => {
+    this.toSort = this.start();
+    this.array = array; 
+    this.toSort.next();
+    for (let i=0;i<array.length;i++) {
+      this.toSort.next();
+    }
+    this.interval = setInterval ( () => {
+            this.toSort.next();
+    },timer)
   }
   toCreateElements(array:any,i?:any,j?:any) {
     i === array.length-2 &&j === 1 ? this.toCreateElements(array,-1,-1): this.props.getChild(array,i,j);
   }
-  render() {
-      return (
-          <div>
-          </div>
-      )
-  }
+  render() {return (<></>)}
   // mozilla firefox and safari using marge sort as a default sorting algorithm.
 }
-// merge (arr1:any, arr2:any) {
-//   let sorted = [];
-
-//   while (arr1.length && arr2.length) {
-//     if (arr1[0] < arr2[0]) sorted.push(arr1.shift());
-//     else sorted.push(arr2.shift());
-//   };
-//   const value = sorted.concat(arr1.slice().concat(arr2.slice()));
-//   this.toCreateElements(value)
-//   console.log(value)
-//   return value;
-// };
-
-// mergeSort (arr:any):any {
-//   console.log(arr)
-//   if (arr.length <= 1) return arr;
-//   let mid = Math.floor(arr.length / 2),left,right;
-//   left = this.mergeSort(arr.slice(0, mid))
-//   right = this.mergeSort(arr.slice(mid))
-//   console.log("final call");
-//   return this.merge(left,right);
-// }
 export default MergeSort

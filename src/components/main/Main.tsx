@@ -109,7 +109,7 @@ export class Main extends Component <IMyComponentProps, IMyComponentState> {
         const array:any = this.state.randomArray;
         switch(object.method) {
             case "Merge Sort":
-                this.sortElement.mergeSort(array);
+                this.sortElement.sort(array,object.type);
                 break;
             case "Insertion Sort":
                 this.InsertionSortRefElement.sort(array,object.type);
